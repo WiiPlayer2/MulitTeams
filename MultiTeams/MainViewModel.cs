@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Vanara.PInvoke.User32;
 
 namespace MultiTeams
 {
@@ -13,6 +14,7 @@ namespace MultiTeams
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Interop;
+    using Vanara.PInvoke;
 
     class AsyncActionCommand : ICommand
     {
@@ -65,7 +67,7 @@ namespace MultiTeams
 
         private Process? teamsProcess;
 
-        private IntPtr teamsWindowHandle;
+        private HWND teamsWindowHandle;
 
         public string ProfileName { get; }
 
@@ -90,11 +92,11 @@ namespace MultiTeams
             if (this.teamsProcess.MainWindowHandle != IntPtr.Zero && this.teamsProcess.MainWindowHandle != this.teamsWindowHandle)
             {
                 this.teamsWindowHandle = this.teamsProcess.MainWindowHandle;
-                Natives.MoveWindow(this.teamsWindowHandle, 0, 100, 1600, 900, 1);
-                Natives.SetParent(this.teamsWindowHandle, windowInteropHelper.Handle);
+                MoveWindow(this.teamsWindowHandle, 0, 100, 1600, 900, true);
+                SetParent(this.teamsWindowHandle, windowInteropHelper.Handle);
             }
 
-            Natives.ShowWindow(this.teamsWindowHandle, 1);
+            ShowWindow(this.teamsWindowHandle, ShowWindowCommand.SW_NORMAL);
         }
 
         // Credit to https://techcommunity.microsoft.com/t5/microsoft-teams/multiple-instances-of-microsoft-teams-application/m-p/1306051
@@ -126,7 +128,7 @@ namespace MultiTeams
 
         public void Disable()
         {
-            Natives.ShowWindow(this.teamsWindowHandle, 0);
+            ShowWindow(this.teamsWindowHandle, 0);
         }
     }
 }
