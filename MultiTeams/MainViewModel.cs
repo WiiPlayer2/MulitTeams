@@ -97,6 +97,7 @@ namespace MultiTeams
             Natives.ShowWindow(this.teamsWindowHandle, 1);
         }
 
+        // Credit to https://techcommunity.microsoft.com/t5/microsoft-teams/multiple-instances-of-microsoft-teams-application/m-p/1306051
         private static async Task<Process> LaunchTeams(string profileName)
         {
             var teamsExeFolder = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Microsoft", "Teams");
