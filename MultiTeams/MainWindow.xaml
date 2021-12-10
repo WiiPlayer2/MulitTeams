@@ -10,7 +10,7 @@
         Width="800"
         Height="200"
         d:DataContext="{d:DesignInstance local:MainViewModel}"
-        Loaded="{e:EventBinding OnLoaded}"
+        Loaded="{e:EventBinding OnLoaded, {Binding ElementName=root}}"
         mc:Ignorable="d">
   <Grid>
     <TabControl DisplayMemberPath="ProfileName"

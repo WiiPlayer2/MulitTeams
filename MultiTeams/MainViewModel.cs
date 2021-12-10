@@ -3,7 +3,9 @@ using System.Text;
 
 namespace MultiTeams
 {
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.IO;
     using System.Windows;
     using EventBinder;
 
@@ -11,7 +13,7 @@ namespace MultiTeams
     {
         private TeamsTabViewModel? selectedTeamsTab;
 
-        public List<TeamsTabViewModel> TeamsTabs { get; }
+        public ObservableCollection<TeamsTabViewModel> TeamsTabs { get; } = new ObservableCollection<TeamsTabViewModel>();
 
         public TeamsTabViewModel? SelectedTeamsTab
         {
@@ -29,11 +31,16 @@ namespace MultiTeams
 
         public MainViewModel(Window window)
         {
-            TeamsTabs = new List<TeamsTabViewModel>() { new(window, "bluehands"), new(window, "ROSEN"), };
+            //TeamsTabs = new List<TeamsTabViewModel>() { new(window, "bluehands"), new(window, "ROSEN"), };
         }
 
-        public void OnLoaded()
+        public void OnLoaded(Window window)
         {
+            foreach (var profile in TeamsAPI.GetProfiles())
+            {
+                TeamsTabs.Add(new (window, profile));
+            }
+
             foreach (var tab in TeamsTabs)
             {
                 tab.Enable();
