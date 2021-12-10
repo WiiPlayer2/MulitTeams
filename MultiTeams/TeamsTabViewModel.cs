@@ -11,7 +11,7 @@
     using System.Windows.Interop;
     using Vanara.PInvoke;
 
-    class TeamsTabViewModel
+    public class TeamsTabViewModel
     {
         private readonly Window window;
 

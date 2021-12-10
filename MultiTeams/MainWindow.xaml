@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:MultiTeams"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:e="clr-namespace:EventBinder;assembly=EventBinder"
         x:Name="root"
         Title="MainWindow"
         Width="800"
         Height="450"
         d:DataContext="{d:DesignInstance local:MainViewModel}"
+        Loaded="{e:EventBinding OnLoaded}"
         mc:Ignorable="d">
   <Grid>
     <TabControl DisplayMemberPath="ProfileName"

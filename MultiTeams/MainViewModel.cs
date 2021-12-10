@@ -5,8 +5,9 @@ namespace MultiTeams
 {
     using System.ComponentModel;
     using System.Windows;
+    using EventBinder;
 
-    class MainViewModel
+    public class MainViewModel
     {
         private TeamsTabViewModel? selectedTeamsTab;
 
@@ -29,6 +30,15 @@ namespace MultiTeams
         public MainViewModel(Window window)
         {
             TeamsTabs = new List<TeamsTabViewModel>() { new(window, "bluehands"), new(window, "ROSEN"), };
+        }
+
+        public void OnLoaded()
+        {
+            foreach (var tab in TeamsTabs)
+            {
+                tab.Enable();
+                tab.Disable();
+            }
         }
     }
 }
