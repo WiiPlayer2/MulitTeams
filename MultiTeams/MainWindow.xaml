@@ -2,19 +2,35 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:e="clr-namespace:EventBinder;assembly=EventBinder"
         xmlns:local="clr-namespace:MultiTeams"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:e="clr-namespace:EventBinder;assembly=EventBinder"
         x:Name="root"
         Title="MainWindow"
         Width="800"
-        Height="450"
+        Height="200"
         d:DataContext="{d:DesignInstance local:MainViewModel}"
         Loaded="{e:EventBinding OnLoaded}"
         mc:Ignorable="d">
   <Grid>
     <TabControl DisplayMemberPath="ProfileName"
                 ItemsSource="{Binding TeamsTabs}"
-                SelectedItem="{Binding SelectedTeamsTab}" />
+                SelectedItem="{Binding SelectedTeamsTab}">
+      <TabControl.ItemContainerStyle>
+        <Style TargetType="TabItem">
+          <Setter Property="HeaderTemplate">
+            <Setter.Value>
+              <DataTemplate DataType="{x:Type local:TeamsTabViewModel}">
+                <Grid Width="100" Height="100">
+                  <TextBlock HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Text="{Binding ProfileName}" />
+                </Grid>
+              </DataTemplate>
+            </Setter.Value>
+          </Setter>
+        </Style>
+      </TabControl.ItemContainerStyle>
+    </TabControl>
   </Grid>
 </Window>
