@@ -42,11 +42,12 @@
             if (this.teamsProcess.MainWindowHandle != IntPtr.Zero && this.teamsProcess.MainWindowHandle != this.teamsWindowHandle)
             {
                 this.teamsWindowHandle = this.teamsProcess.MainWindowHandle;
-                User32.MoveWindow(this.teamsWindowHandle, 0, 100, 1600, 900, true);
-                User32.SetParent(this.teamsWindowHandle, windowInteropHelper.Handle);
+                //User32.MoveWindow(this.teamsWindowHandle, 0, 100, 1600, 900, true);
+                //User32.SetParent(this.teamsWindowHandle, windowInteropHelper.Handle);
             }
 
-            User32.ShowWindow(this.teamsWindowHandle, ShowWindowCommand.SW_NORMAL);
+            await Task.Yield();
+            User32.ShowWindow(this.teamsWindowHandle, ShowWindowCommand.SW_RESTORE);
         }
 
         // Credit to https://techcommunity.microsoft.com/t5/microsoft-teams/multiple-instances-of-microsoft-teams-application/m-p/1306051
@@ -78,7 +79,7 @@
 
         public void Disable()
         {
-            User32.ShowWindow(this.teamsWindowHandle, 0);
+            User32.ShowWindow(this.teamsWindowHandle, ShowWindowCommand.SW_MINIMIZE);
         }
     }
 }
